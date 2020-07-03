@@ -14,7 +14,7 @@ from flasgger import Swagger
 from sklearn.metrics import classification
 
 app = Flask(__name__)
-Swagger(app)
+swagger = Swagger(app)
 
 pickle_in = open("classifier_MK.pkl", "rb")
 classifier = pickle.load(pickle_in)
@@ -61,27 +61,27 @@ def predict_note_authentication():
     return "Hello The answer is" + str(prediction)
 
 
-# @app.route('/predict_file', methods=["POST"])
-# def predict_note_file():
-#     """Let's Authenticate the Banks Note
-#     This is using docstrings for specifications.
-#     ---
-#     parameters:
-#       - name: file
-#         in: formData
-#         type: file
-#         required: true
-#
-#     responses:
-#         200:
-#             description: The output values
-#
-#     """
-#     df_test = pd.read_csv(request.files.get("file"))
-#     print(df_test.head())
-#     prediction = classifier.predict(df_test)
-#
-#     return str(list(prediction))
+@app.route('/predict_file', methods=["POST"])
+def predict_note_file():
+    """Let's Authenticate the Banks Note
+    This is using docstrings for specifications.
+    ---
+    parameters:
+      - name: file
+        in: formData
+        type: file
+        required: true
+
+    responses:
+        200:
+            description: The output values
+
+    """
+    df_test = pd.read_csv(request.files.get("file"))
+    print(df_test.head())
+    prediction = classifier.predict(df_test)
+
+    return str(list(prediction))
 
 
 if __name__ == '__main__':

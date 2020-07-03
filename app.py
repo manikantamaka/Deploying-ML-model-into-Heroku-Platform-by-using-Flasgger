@@ -14,6 +14,7 @@ from flasgger import Swagger
 from sklearn.metrics import classification
 
 app = Flask(__name__)
+app.debug = True
 swagger = Swagger(app)
 
 pickle_in = open("classifier_MK.pkl", "rb")
@@ -85,6 +86,7 @@ def predict_note_file():
 
 
 if __name__ == '__main__':
+    app.debug = True
     app.run(host='0.0.0.0', port=8000)
     
     
